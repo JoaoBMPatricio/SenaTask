@@ -1,31 +1,107 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SenaTask — organize suas tarefas com simplicidade.">
-  <title>SenaTask — Gerenciador de tarefas</title>
-  <link rel="stylesheet" href="./css/style.css"> 
-</head>
-<body>
-  <header>
-    <a href="./index.html" aria-label="SenaTask - Página inicial">
-      SenaTask
-    </a>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="SenaTask — organize suas tarefas com simplicidade." />
+    <title>SenaTask</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <header><a href="./index.html" aria-label="SenaTask - Página inicial">SenaTask</a></header>
+    <main id="app">
+      <p id="feedback" role="status" aria-live="polite"></p>
 
-  <main id="app">
-    <section aria-labelledby="welcome-title">
-      <h1 id="welcome-title">Organize suas tarefas.</h1>
-      <p>Um passo de cada vez, no seu ritmo.</p>
-    </section>
-  </main>
+      <section class="auth-card" aria-labelledby="login-title">
+        <div class="auth-heading">
+          <h1 id="login-title">Bem-vindo de volta</h1>
+          <p>Entre para organizar suas tarefas.</p>
+        </div>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-email">E-mail</label>
+            <input type="email" id="login-email" name="email" placeholder="voce@exemplo.com" autocomplete="email" required />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Senha</label>
+            <input type="password" id="login-password" name="password" placeholder="Digite sua senha" autocomplete="current-password" required />
+          </div>
+          <button type="submit" class="button-primary">Entrar</button>
+          <p class="auth-switch">Ainda não tem uma conta? <a href="#" id="show-register">Criar conta</a></p>
+        </form>
+      </section>
 
-  <footer>
-    <p>SenaTask — seu espaço de organização.</p>
-  </footer>
+      <section class="auth-card" id="register-section" aria-labelledby="register-title" hidden>
+        <div class="auth-heading">
+          <h1 id="register-title">Crie sua conta</h1>
+          <p>Comece a organizar suas tarefas.</p>
+        </div>
+        <form id="register-form">
+          <div class="form-group">
+            <label for="register-email">E-mail</label>
+            <input type="email" id="register-email" name="email" placeholder="voce@exemplo.com" autocomplete="email" required />
+          </div>
+          <div class="form-group">
+            <label for="register-password">Senha</label>
+            <input type="password" id="register-password" name="password" placeholder="Crie uma senha" autocomplete="new-password" minlength="6" required />
+          </div>
+          <div class="form-group">
+            <label for="register-password-confirm">Confirmar senha</label>
+            <input type="password" id="register-password-confirm" name="password-confirm" placeholder="Digite a senha novamente" autocomplete="new-password" minlength="6" required />
+          </div>
+          <button type="submit" class="button-primary">Criar conta</button>
+          <p class="auth-switch">Já tem uma conta? <a href="#" id="show-login">Entrar</a></p>
+        </form>
+      </section>
 
-  <script type="module" src="./js/app.js"></script>
-</body>
+      <section id="tasks-section" aria-labelledby="tasks-title" hidden>
+        <div class="tasks-header">
+          <div>
+            <h1 id="tasks-title">Minhas tarefas</h1>
+            <p>Organize seu dia, uma tarefa de cada vez.</p>
+          </div>
+          <button type="button" id="logout-button" class="button-secondary">Sair</button>
+        </div>
+
+        <form id="task-form" class="task-form">
+          <h2 id="task-form-title">Nova tarefa</h2>
+          <div class="form-group">
+            <label for="task-title">Título da tarefa</label>
+            <input type="text" id="task-title" name="title" placeholder="Ex.: Estudar Java" maxlength="100" required />
+          </div>
+          <div class="form-group">
+            <label for="task-description">Descrição (opcional)</label>
+            <textarea id="task-description" name="description" placeholder="Detalhes da tarefa" rows="3" maxlength="500"></textarea>
+          </div>
+          <div class="task-form-options">
+            <div class="form-group">
+              <label for="task-priority">Prioridade</label>
+              <select id="task-priority" name="priority">
+                <option value="low">Baixa</option>
+                <option value="medium" selected>Média</option>
+                <option value="high">Alta</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="task-due-date">Data de vencimento (opcional)</label>
+              <input type="date" id="task-due-date" name="dueDate" />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" id="task-submit-button" class="button-primary">Adicionar tarefa</button>
+            <button type="button" id="cancel-edit-button" class="button-secondary" hidden>Cancelar</button>
+          </div>
+        </form>
+
+        <div class="filter-bar" id="task-filters" aria-label="Filtrar tarefas">
+          <button type="button" data-filter="all" aria-pressed="true">Todas</button>
+          <button type="button" data-filter="pending" aria-pressed="false">Pendentes</button>
+          <button type="button" data-filter="completed" aria-pressed="false">Concluídas</button>
+        </div>
+        <div id="tasks-list" aria-live="polite"></div>
+      </section>
+    </main>
+    <footer><p>SenaTask — seu espaço de organização.</p></footer>
+    <script type="module" src="./js/app.js"></script>
+  </body>
 </html>
